@@ -4,9 +4,11 @@
 
 ### API endpoints
 Note that all responses are in JSON format.
-| Endpoint | Description |
-| ------ | ------ |
-| /pokemon | Returns the list of all Pokemon|
+
+| Endpoint   |      Description      |
+|----------|:-------------:|
+| /pokemon |  Returns the list of all Pokemon| 
+| /pokemon/totalNumber | Returns the total number of Pokemon|
 | /pokemon/totalNumber | Returns the total number of Pokemon|
 | /pokemon/id/{id} | Returns a pokemon identified by an id|
 | /pokemon/name/{name} | Returns a pokemon identified by name |
@@ -21,6 +23,5 @@ Note that all responses are in JSON format.
 | /pokemon/speed/{speed} | Returns a list of pokemon having a specific speed |  
 | /pokemon/generation/{generation} | Returns a list of pokemon belonging to a specific generation |  
 | /pokemon/legendary/{legendary} | Returns a list of legendary or non-legendary pokemon |  
-
 
 [here]: <https://www.kaggle.com/abcsds/pokemon>
