@@ -43,21 +43,24 @@ public class PokemonController {
     @RequestMapping("/pokemon/totalNumber")
     @ResponseBody
     public ResponseEntity<Integer> listNumberOfPokemon () {
+        int count = 0;
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT COUNT(*) FROM pokemon";
             ResultSet resultSet = statement.executeQuery(sql);
-            return new ResponseEntity<Integer>(resultSet.getInt(0), HttpStatus.OK);
+            while(resultSet.next()){
+                count = resultSet.getInt("COUNT(*)");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return new ResponseEntity<Integer>(count, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/pokemon/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Pokemon> getPokemonById (@PathVariable("id") int id) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where id = " + id;
@@ -76,7 +79,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/name/{name}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Pokemon> getPokemonByName (@PathVariable("name") String name) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where name = " + name;
@@ -95,7 +98,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/type1/{type1}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonByType1 (@PathVariable("type1") String Type1) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where type1 = " + Type1;
@@ -114,7 +117,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/type2/{type2}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonByType2 (@PathVariable("type2") String type2) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where type2 = " + type2;
@@ -132,7 +135,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/total/{total}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonByTotal (@PathVariable("total") int total) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where total = " + total;
@@ -151,7 +154,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/hp/{hp}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonByHP (@PathVariable("hp") int hp) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where hp = " + hp;
@@ -170,7 +173,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/attack/{attack}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonByAttack (@PathVariable("attack") int attack) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where attack = " + attack;
@@ -189,7 +192,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/defense/{defense}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonByDefense (@PathVariable("defense") int defense) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where defense = " + defense;
@@ -208,7 +211,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/specialAttack/{specialAttack}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonBySpecialAttack (@PathVariable("specialAttack") int specialAttack) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where specialAttack = " + specialAttack;
@@ -227,7 +230,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/specialDefense/{specialDefense}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonBySpecialDefense (@PathVariable("specialDefense") int specialDefense) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where specialDefense = " + specialDefense;
@@ -246,7 +249,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/speed/{speed}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonBySpeed (@PathVariable("speed") int speed) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where speed = " + speed;
@@ -265,7 +268,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/generation/{generation}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonByGeneration (@PathVariable("generation") int generation) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where generation = " + generation;
@@ -284,7 +287,7 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/legendary/{legendary}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Pokemon>> getPokemonByLegendary (@PathVariable("legendary") boolean legendary) {
-        List<Pokemon> pokemonList = null;
+        List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         try {
             Statement statement = dbLoader.connection.createStatement();
             String sql = "SELECT * FROM pokemon where legendary = " + legendary;
