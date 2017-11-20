@@ -1,9 +1,17 @@
 package main.controller;
 
+import main.domain.Pokemon;
 import main.service.DBLoader;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class PokemonController {
@@ -15,54 +23,49 @@ public class PokemonController {
 
     @RequestMapping("/pokemon")
     @ResponseBody
-    public String hell() {
-        return "FFFFF";
+    public ResponseEntity<List<Pokemon>> listAllPokemon () {
+        List pokemonList = new ArrayList<Pokemon>();
+        try {
+            Statement statement = dbLoader.connection.createStatement();
+            String sql = "SELECT * FROM pokemon";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                Pokemon p = new Pokemon();
+                p.setId(resultSet.getInt("id"));
+                p.setName(resultSet.getString("name"));
+                p.setType1(resultSet.getString("type1"));
+                p.setType1(resultSet.getString("type2"));
+                p.setTotal(resultSet.getInt("total"));
+                p.setHp(resultSet.getInt("hp"));
+                p.setAttack(resultSet.getInt("attack"));
+                p.setDefense(resultSet.getInt("defense"));
+                p.setSpecialAttack(resultSet.getInt("specialAttack"));
+                p.setSpecialDefense(resultSet.getInt("specialDefense"));
+                p.setSpeed(resultSet.getInt("speed"));
+                p.setGeneration(resultSet.getInt("generation"));
+                p.setLegendary(resultSet.getBoolean("legendary"));
+                pokemonList.add(p);
+            }
+            resultSet.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<List<Pokemon>>(pokemonList, HttpStatus.OK);
     }
-//    @RequestMapping("/pokemon")
-//    @ResponseBody
-//    public ResponseEntity<List<Pokemon>> listAllPokemon () {
-//        Session session = sessionFactory.openSession();
-//        Transaction tx = null;
-//        List pokemonList = new ArrayList<Pokemon>();
-//
-//        try {
-//            tx = session.beginTransaction();
-//            String hql = "from Pokemon";
-//            Query query = session.createQuery(hql);
-//            pokemonList = query.list();
-//            tx.commit();
-//        } catch (HibernateException e) {
-//            if (tx != null) tx.rollback();
-//            e.printStackTrace();
-//        } finally {
-//            session.close();
-//        }
-//
-//        return new ResponseEntity<List<Pokemon>>(pokemonList, HttpStatus.OK);
-//    }
-//
-//    @RequestMapping("/pokemon/totalNumber")
-//    @ResponseBody
-//    public ResponseEntity<Integer> listNumberOfPokemon () {
-//        Session session = sessionFactory.openSession();
-//        Transaction tx = null;
-//        List pokemonList = new ArrayList<Pokemon>();
-//
-//        try {
-//            tx = session.beginTransaction();
-//            String hql = "from Pokemon";
-//            Query query = session.createQuery(hql);
-//            pokemonList = query.list();
-//            tx.commit();
-//        } catch (HibernateException e) {
-//            if (tx != null) tx.rollback();
-//            e.printStackTrace();
-//        } finally {
-//            session.close();
-//        }
-//
-//        return new ResponseEntity<Integer>(pokemonList.size(), HttpStatus.OK);
-//    }
+
+    @RequestMapping("/pokemon/totalNumber")
+    @ResponseBody
+    public ResponseEntity<Integer> listNumberOfPokemon () {
+        try {
+            Statement statement = dbLoader.connection.createStatement();
+            String sql = "SELECT COUNT(*) FROM pokemon";
+            ResultSet resultSet = statement.executeQuery(sql);
+            return new ResponseEntity<Integer>(resultSet.getInt(0), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 //
 //    @RequestMapping(value = "/pokemon/id/{id}", method = RequestMethod.GET)
 //    @ResponseBody

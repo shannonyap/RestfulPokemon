@@ -1,37 +1,26 @@
 package main.service;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 public class DBLoader {
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://x3ztd854gaa7on6s.cbetxkdyhwsb.us-east-1.rds.amazonaws.com/ledxbd5av0vi3m0g";
+    static final String DB_URL = "jdbc:mysql://otwsl2e23jrxcqvx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com/qoku3xkesuvipcpp";
 
     //  Database credentials
-    static final String USER = "p01o3zrbxoctcyue";
-    static final String PASS = "ff0a26jami6dwosa";
+    static final String USER = "jbehzwu2oe6w5h7p";
+    static final String PASS = "sx44hhkjc7lkfvx3";
+
+    public Connection connection = null;
 
     public DBLoader() {
-//        Connection conn = null;
-//        Statement stmt = null;
-//        try {
-//            //STEP 2: Register JDBC driver
-//            Class.forName("com.mysql.jdbc.Driver");
-//            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-//            stmt = conn.createStatement();
-//
-//            String sql = "SELECT * FROM pokemon";
-//            ResultSet rs = stmt.executeQuery(sql);
-//            while(rs.next()){
-//                //Retrieve by column name
-//                int id  = rs.getInt("id");
-//
-//                //Display values
-//                System.out.print("ID: " + id);
-//            }
-//            rs.close();
-//        } catch (Exception e) {
-//
-//        }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }
