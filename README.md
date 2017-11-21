@@ -5,16 +5,9 @@
 ### API endpoints
 Note that all responses are in JSON format.
 
-| Endpoint  | Description |
-| ------------- | ------------- |
-| /pokemon  | Content Cell  |
-| /pokemon/totalNumber  | Content Cell  |
-
-
 | Endpoint | Description |
 | ------ | ------ |
 | /pokemon | Returns the list of all Pokemon|
-| /pokemon/totalNumber | Returns the total number of Pokemon|
 | /pokemon/id/{id} | Returns a pokemon identified by an id|
 | /pokemon/name/{name} | Returns a pokemon identified by name |
 | /pokemon/type1/{type1} | Returns a list of pokemon having a specific type1 |
