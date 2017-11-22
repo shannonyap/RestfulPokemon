@@ -15,9 +15,11 @@ import java.util.List;
 @RestController
 public class PokemonController {
     private DBLoader dbLoader;
+    private PokemonCreator creator;
 
     public PokemonController() {
-        this.dbLoader = new DBLoader();
+        this.creator = new PokemonCreator();
+        this.dbLoader = new DBLoader(creator);
     }
 
     @RequestMapping("/pokemon")

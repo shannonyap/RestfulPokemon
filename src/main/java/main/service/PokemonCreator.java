@@ -5,8 +5,9 @@ import main.domain.Pokemon;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PokemonCreator {
-    public Pokemon createPokemon(ResultSet resultSet) throws SQLException {
+public class PokemonCreator implements ObjectCreatorInterface {
+    @Override
+    public Object createDatabaseObject(ResultSet resultSet) throws SQLException {
         Pokemon p = new Pokemon();
         p.setId(resultSet.getInt("id"));
         p.setName(resultSet.getString("name"));
@@ -24,3 +25,4 @@ public class PokemonCreator {
         return p;
     }
 }
+

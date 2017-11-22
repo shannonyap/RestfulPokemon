@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DBLoader implements DBLoaderInterface {
 
-    private PokemonCreator creator;
+    private ObjectCreatorInterface creator;
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -21,8 +21,8 @@ public class DBLoader implements DBLoaderInterface {
     public Connection connection = null;
 
 
-    public DBLoader() {
-        this.creator = new PokemonCreator();
+    public DBLoader(ObjectCreatorInterface creator) {
+        this.creator = creator;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -37,7 +37,7 @@ public class DBLoader implements DBLoaderInterface {
             Statement statement = this.connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlStatement);
             while(resultSet.next()){
-                list.add(creator.createPokemon(resultSet));
+                list.add(creator.createDatabaseObject(resultSet));
             }
             resultSet.close();
         } catch (Exception e) {
